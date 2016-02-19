@@ -5,7 +5,7 @@ using System.Text;
 using System.Web.Mvc;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using ProjetDotNet;
-using ProjetDotNet.Controllers;
+using ProjetDotNet.Tests.Controllers.HomeControllerTest;
 
 namespace ProjetDotNet.Tests.Controllers
 {

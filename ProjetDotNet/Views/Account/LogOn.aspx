@@ -1,22 +1,20 @@
-﻿<%@ Page Language="C#" MasterPageFile="~/Views/Shared/Site.Master" Inherits="System.Web.Mvc.ViewPage<ProjetDotNet.Models.LogOnModel>" %>
+﻿<%@ Page Language="C#" Inherits="System.Web.Mvc.ViewPage<ProjetDotNet.Models.LogOnModel>" %>
 
-<asp:Content ID="loginTitle" ContentPlaceHolderID="TitleContent" runat="server">
-    Ouverture de session
-</asp:Content>
-
-<asp:Content ID="loginContent" ContentPlaceHolderID="MainContent" runat="server">
-    <h2>Ouverture de session</h2>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+    
+<html>
+<head id="Head1" runat="server">
+    <title>Se connecter</title>
+</head>
+<body>
+    <div>
     <p>
-        Entrez un nom d'utilisateur et un mot de passe. <%: Html.ActionLink("Inscrire", "Register") %> si vous n'avez pas de compte.
+        Entrez un nom d'utilisateur et un mot de passe. 
     </p>
-
     <% using (Html.BeginForm()) { %>
         <%: Html.ValidationSummary(true, "Échec de la connexion. Corrigez les erreurs et réessayez.") %>
         <div>
-            <fieldset>
-                <legend>Informations de compte</legend>
-                
-                <div class="editor-label">
+            <div class="editor-label">
                     <%: Html.LabelFor(m => m.UserName) %>
                 </div>
                 <div class="editor-field">
@@ -31,16 +29,9 @@
                     <%: Html.PasswordFor(m => m.Password) %>
                     <%: Html.ValidationMessageFor(m => m.Password) %>
                 </div>
-                
-                <div class="editor-label">
-                    <%: Html.CheckBoxFor(m => m.RememberMe) %>
-                    <%: Html.LabelFor(m => m.RememberMe) %>
-                </div>
-                
-                <p>
-                    <input type="submit" value="Ouverture de session" />
-                </p>
-            </fieldset>
+                <input type="submit" value="Se connecter" />
         </div>
     <% } %>
-</asp:Content>
+    </div>
+</body>
+</html>

@@ -7,7 +7,6 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
 using System.Web.Security;
-using ProjetDotNet.Models;
 
 namespace ProjetDotNet.Controllers
 {
@@ -15,138 +14,40 @@ namespace ProjetDotNet.Controllers
     [HandleError]
     public class AccountController : Controller
     {
+        //
+        // GET: /Account/
 
-        public IFormsAuthenticationService FormsService { get; set; }
-        public IMembershipService MembershipService { get; set; }
-
-        protected override void Initialize(RequestContext requestContext)
+        public ActionResult Index()
         {
-            if (FormsService == null) { FormsService = new FormsAuthenticationService(); }
-            if (MembershipService == null) { MembershipService = new AccountMembershipService(); }
+            return View();
 
-            base.Initialize(requestContext);
+
         }
-
-        // **************************************
-        // URL: /Account/LogOn
-        // **************************************
-
+        [HttpGet]
         public ActionResult LogOn()
         {
             return View();
         }
 
         [HttpPost]
-        public ActionResult LogOn(LogOnModel model, string returnUrl)
+        public ActionResult LogOn(String username, String passWord)
         {
-            if (ModelState.IsValid)
+            if (username == "Julien" && passWord == "azerty")
             {
-                if (MembershipService.ValidateUser(model.UserName, model.Password))
-                {
-                    FormsService.SignIn(model.UserName, model.RememberMe);
-                    if (!String.IsNullOrEmpty(returnUrl))
-                    {
-                        return Redirect(returnUrl);
-                    }
-                    else
-                    {
-                        return RedirectToAction("Index", "Home");
-                    }
-                }
-                else
-                {
-                    ModelState.AddModelError("", "Le nom d'utilisateur ou mot de passe fourni est incorrect.");
-                }
+                FormsAuthentication.SetAuthCookie(username, true);
+                return RedirectToAction("Index", "Index");
             }
-
-            // Si nous sommes arrivés là, quelque chose a échoué, réafficher le formulaire
-            return View(model);
+            else
+            {
+                ModelState.AddModelError("", "Le nom d'utilisateur ou mot de passe fourni est incorrect.");
+                return View();
+            }
         }
-
-        // **************************************
-        // URL: /Account/LogOff
-        // **************************************
 
         public ActionResult LogOff()
         {
-            FormsService.SignOut();
-
-            return RedirectToAction("Index", "Home");
-        }
-
-        // **************************************
-        // URL: /Account/Register
-        // **************************************
-
-        public ActionResult Register()
-        {
-            ViewData["PasswordLength"] = MembershipService.MinPasswordLength;
-            return View();
-        }
-
-        [HttpPost]
-        public ActionResult Register(RegisterModel model)
-        {
-            if (ModelState.IsValid)
-            {
-                // Tentative d'inscription de l'utilisateur
-                MembershipCreateStatus createStatus = MembershipService.CreateUser(model.UserName, model.Password, model.Email);
-
-                if (createStatus == MembershipCreateStatus.Success)
-                {
-                    FormsService.SignIn(model.UserName, false /* createPersistentCookie */);
-                    return RedirectToAction("Index", "Home");
-                }
-                else
-                {
-                    ModelState.AddModelError("", AccountValidation.ErrorCodeToString(createStatus));
-                }
-            }
-
-            // Si nous sommes arrivés là, quelque chose a échoué, réafficher le formulaire
-            ViewData["PasswordLength"] = MembershipService.MinPasswordLength;
-            return View(model);
-        }
-
-        // **************************************
-        // URL: /Account/ChangePassword
-        // **************************************
-
-        [Authorize]
-        public ActionResult ChangePassword()
-        {
-            ViewData["PasswordLength"] = MembershipService.MinPasswordLength;
-            return View();
-        }
-
-        [Authorize]
-        [HttpPost]
-        public ActionResult ChangePassword(ChangePasswordModel model)
-        {
-            if (ModelState.IsValid)
-            {
-                if (MembershipService.ChangePassword(User.Identity.Name, model.OldPassword, model.NewPassword))
-                {
-                    return RedirectToAction("ChangePasswordSuccess");
-                }
-                else
-                {
-                    ModelState.AddModelError("", "Le mot de passe actuel est incorrect ou le nouveau mot de passe n'est pas valide.");
-                }
-            }
-
-            // Si nous sommes arrivés là, quelque chose a échoué, réafficher le formulaire
-            ViewData["PasswordLength"] = MembershipService.MinPasswordLength;
-            return View(model);
-        }
-
-        // **************************************
-        // URL: /Account/ChangePasswordSuccess
-        // **************************************
-
-        public ActionResult ChangePasswordSuccess()
-        {
-            return View();
+            FormsAuthentication.SignOut();
+            return RedirectToAction("LogOn", "Account");
         }
 
     }
