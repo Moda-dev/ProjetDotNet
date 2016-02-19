@@ -1,0 +1,4 @@
+1;Trackmania;Jeu de course;../../Content/doge4.jpeg
+2;Diablo 3;Jeu de bourrin;../../Content/doge4.jpeg
+3;World of Warcraft;MMORPG;../../Content/doge4.jpeg
+412475;Call of Duty;FPS;../../Content/doge4.jpeg

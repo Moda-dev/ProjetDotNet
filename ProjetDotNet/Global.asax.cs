@@ -19,7 +19,7 @@ namespace ProjetDotNet
             routes.MapRoute(
                 "Default", // Nom d'itinéraire
                 "{controller}/{action}/{id}", // URL avec des paramètres
-                new { controller = "Home", action = "Index", id = UrlParameter.Optional } // Paramètres par défaut
+                new { controller = "Index", action = "Index", id = UrlParameter.Optional } // Paramètres par défaut
             );
 
         }

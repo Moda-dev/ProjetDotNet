@@ -35,11 +35,11 @@ namespace ProjetDotNet.Controllers
             if (username == "Julien" && passWord == "azerty")
             {
                 FormsAuthentication.SetAuthCookie(username, true);
-                return RedirectToAction("Index", "Index");
+                return RedirectToAction("LogOn", "Account");
             }
             else
             {
-                ModelState.AddModelError("", "Le nom d'utilisateur ou mot de passe fourni est incorrect.");
+                ModelState.AddModelError("", "Nom d'utilisateur ou mot de passe incorrect !");
                 return View();
             }
         }

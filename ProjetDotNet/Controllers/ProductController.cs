@@ -45,6 +45,7 @@ namespace ProjetDotNet.Controllers
                 product.name = game.Name;
                 product.description = game.Description;
                 product.id = game.Id;
+                product.pathImage = game.pathImage;
 
                 products.Add(product);
             }
@@ -62,6 +63,18 @@ namespace ProjetDotNet.Controllers
         {
             ProductRepository rep = new ProductRepository();
             rep.CreateEntity(
+                Convert.ToInt32(Id),
+                Name,
+                Description);
+
+            return RedirectToAction("GetAll");
+        }
+
+        [HttpPost]
+        public ActionResult UpdateProduct(String Id, String Name, String Description)
+        {
+            ProductRepository rep = new ProductRepository();
+            rep.UpdateEntity(
                 Convert.ToInt32(Id),
                 Name,
                 Description);

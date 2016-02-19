@@ -10,5 +10,6 @@ namespace GameServices.Entities
         public String Name;
         public String Description;
         public int Id;
+        public String pathImage;
     }
 }

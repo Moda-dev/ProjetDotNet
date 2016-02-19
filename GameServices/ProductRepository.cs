@@ -59,6 +59,7 @@ namespace GameServices
                     game.Id = Convert.ToInt32(lineValues[0]);
                     game.Name = lineValues[1];
                     game.Description = lineValues[2];
+                    game.pathImage = lineValues[3];
                     games.Add(game);
                 }
             }
@@ -137,7 +138,7 @@ namespace GameServices
                 if (!string.IsNullOrEmpty(content))
                     content += "\r\n";
 
-                content += game.Id + ";" + game.Name + ";" + game.Description;
+                content += game.Id + ";" + game.Name + ";" + game.Description + ";" + game.pathImage;
             }
 
             // On écris la liste de jeu dans la fichier

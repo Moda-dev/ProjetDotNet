@@ -1,0 +1,12 @@
+﻿li
+{
+    list-style-type:none;
+    border-bottom : solid 3px black; 
+    margin-top:20px;
+    padding-bottom:5px;
+}
+
+input
+{
+    max-width:200px;
+}
