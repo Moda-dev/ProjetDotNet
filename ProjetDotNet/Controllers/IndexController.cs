@@ -13,7 +13,7 @@ namespace ProjetDotNet.Controllers
 
         public ActionResult Index()
         {
-            return RedirectToAction("LogOn","Account");
+            return RedirectToAction("LogOn", "Account");
         }
 
     }
